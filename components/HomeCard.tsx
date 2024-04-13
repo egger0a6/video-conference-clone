@@ -2,14 +2,14 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 interface HomeCardProps {
-  className: string,
-  img: string,
-  title: string,
-  description: string,
-  handleClick: ()  => void,
+  className: string;
+  img: string;
+  title: string;
+  description: string;
+  handleClick: ()  => void;
 }
 
-const HomeCard = ({ className, img, title, description, handleClick}): HomeCardProps => {
+const HomeCard = ({ className, img, title, description, handleClick}: HomeCardProps) => {
   return (
     <div 
         onClick={handleClick}
