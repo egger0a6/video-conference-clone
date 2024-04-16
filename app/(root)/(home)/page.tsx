@@ -16,7 +16,6 @@ const Home = () => {
       const now = new Date();
       setTime(now.toLocaleTimeString("en-US", {hour: "2-digit", minute: "2-digit"}));
       setDate((new Intl.DateTimeFormat("en-US", {dateStyle: "full"})).format(now));
-      console.log("now")
     }, 1000);
     return () => clearInterval(tick);
   }, []);
