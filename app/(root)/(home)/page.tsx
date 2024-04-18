@@ -7,8 +7,12 @@ const Home = () => {
   const now = new Date();
   const [time, setTime] = useState(now.toLocaleTimeString("en-US", {hour: "2-digit", minute: "2-digit"}));
   const [date, setDate] = useState((new Intl.DateTimeFormat("en-US", {dateStyle: "full"})).format(now));
+
+  // Variables used if not implementing clock that updates in realtime:
   // const time = now.toLocaleTimeString("en-US", {hour: "2-digit", minute: "2-digit"});
   // const date = (new Intl.DateTimeFormat("en-US", {dateStyle: "full"})).format(now);
+  
+  // Another way to formate the date:
   // const date = now.toLocaleDateString("en-US", {weekday: "long", month: "long", day: "numeric", year: "numeric"});
 
   useEffect(() => {

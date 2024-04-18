@@ -64,8 +64,10 @@ const CallList = ({ type }: {type: "ended" | "upcoming" | "recordings"}) => {
 
   const calls = getCalls();
   const noCallsMessage = getNoCallsMessage();
-  // console.log(calls[0] ? calls[0].state.participants : "")
-  // console.log(calls[0] ? calls[0].state.id : "")
+  console.log(calls[0]?.state.members)
+  console.log(calls[0] ? calls[0].state.participants : "")
+  // console.log(recordings[0])
+
 
   if (isLoading) return <Loader />
 
@@ -89,9 +91,6 @@ const CallList = ({ type }: {type: "ended" | "upcoming" | "recordings"}) => {
               handleClick={type === "recordings" ? () => router.push(`${meeting.url}`) : () => router.push(`/meeting/${meeting.id}`)}
               link={type === "recordings" ? meeting.url : `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${meeting.id}`}
               buttonText={type === "upcoming" ? "Start" : "Play"}
-              // img="/icons/upcoming.svg"
-              // dateTime={meeting.state.startsAt}
-              // description={meeting.state.custom.description}
               // participants={meeting.state.participants}
             />
         )) :
