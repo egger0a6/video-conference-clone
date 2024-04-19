@@ -1,12 +1,15 @@
+import ChatClientProvider from "@/providers/ChatClientProvider";
 import StreamVideoProvider from "@/providers/StreamClientProvider";
 import { ReactNode } from "react";
 
 const RootLayout = ({ children }: { children: ReactNode}) => {
   return (
     <main>
-      <StreamVideoProvider>
-        {children}
-      </StreamVideoProvider>
+      <ChatClientProvider>
+        <StreamVideoProvider>
+          {children}
+        </StreamVideoProvider>
+      </ChatClientProvider>
     </main>
   )
 }
