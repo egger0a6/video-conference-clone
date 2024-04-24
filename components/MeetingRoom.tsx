@@ -13,6 +13,7 @@ import { LayoutList, Users } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import EndCallButton from "./EndCallButton";
 import Loader from "./Loader";
+import Channel from "./Channel";
 
 
 type CallLayoutType = "grid" | "speaker-left" | "speaker-right";
@@ -35,9 +36,9 @@ const MeetingRoom = () => {
       case "grid":
         return <PaginatedGridLayout />
       case "speaker-right":
-        return <SpeakerLayout participantsBarPosition="left" />
+        return <SpeakerLayout participantsBarPosition="top" />
       default:
-        return <SpeakerLayout participantsBarPosition="right" />
+        return <SpeakerLayout participantsBarPosition="bottom" />
     }
   }
 
@@ -51,8 +52,8 @@ const MeetingRoom = () => {
           <CallParticipantsList onClose={() => setShowParticipants(false)} />
         </div>
       </div>
-
-      <div className="fixed bottom-0 flex w-full items-center justify-center gap-5 flex-wrap">
+      {/* <Channel /> */}
+      <div className="fixed bottom-0 flex w-full items-center justify-center gap-5 flex-wrap pb-3">
         <CallControls onLeave={() => router.push("/")} />
 
         <DropdownMenu>

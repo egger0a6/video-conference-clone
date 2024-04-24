@@ -3,7 +3,7 @@
 import { tokenProvider } from "@/actions/stream.actions";
 import Loader from "@/components/Loader";
 import { useUser } from "@clerk/nextjs";
-import { ReactNode, use, useEffect, useState } from "react"
+import { ReactNode, useEffect, useState } from "react"
 import { StreamChat } from "stream-chat";
 import { Chat } from "stream-chat-react";
 

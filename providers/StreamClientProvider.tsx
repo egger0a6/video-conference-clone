@@ -8,18 +8,31 @@ import {
   StreamVideo,
 } from '@stream-io/video-react-sdk';
 import { ReactNode, useEffect, useState } from 'react';
+import { StreamChat } from 'stream-chat';
+import { Chat } from 'stream-chat-react';
 
 const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY;
 
 export const StreamVideoProvider = ({ children }: { children: ReactNode}) => {
   const [videoClient, setVideoClient] = useState<StreamVideoClient>();
+  const [chatClient, setChatClient] = useState<StreamChat | null>(null);
   const {user, isLoaded} = useUser();
 
   useEffect(() => {
     if (!isLoaded || !user) return;
     if (!apiKey) throw new Error("Stream API key missing");
+    
+    const newChatClient = StreamChat.getInstance(apiKey);
+    newChatClient.connectUser(
+      {
+        id: user?.id,
+        name: user?.username || user?.id,
+        image: user?.imageUrl,
+      },
+      tokenProvider,
+    )
 
-    const client = new StreamVideoClient({
+    const newVideoClient = new StreamVideoClient({
       apiKey,
       user: {
         id: user?.id,
@@ -29,15 +42,25 @@ export const StreamVideoProvider = ({ children }: { children: ReactNode}) => {
       tokenProvider,
     });
 
-    setVideoClient(client);
+    setChatClient(newChatClient);
+    setVideoClient(newVideoClient);
+
+    return () => {
+      const clear = () => {
+        newChatClient.disconnectUser();
+      }
+      clear();
+    }
   }, [user, isLoaded]);
 
-  if (!videoClient) return <Loader />
+  if (!chatClient || !videoClient) return <Loader />
 
   return (
-    <StreamVideo client={videoClient}>
-      {children}
-    </StreamVideo>
+    <Chat client={chatClient}>
+      <StreamVideo client={videoClient}>
+        {children}
+      </StreamVideo>
+    </Chat>
   );
 };
 
