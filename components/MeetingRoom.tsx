@@ -43,49 +43,49 @@ const MeetingRoom = () => {
   }
 
   return (
-    <section className="relative h-screen w-full overflow-hidden pt-4 text-white">
-      <div className="relative flex size-full items-center justify-center">
+    <section className="flex max-sm:relative h-screen w-full overflow-hidden text-white">
+      <div className="flex flex-col size-full items-center justify-center px-2">
         <div className="flex size-full max-w-[1000px] items-center">
           <CallLayout />
         </div>
-        <div className={cn("h-[calc(100vh-86px)] hidden ml-2 e", {"show-block": showParticipants})}>
-          <CallParticipantsList onClose={() => setShowParticipants(false)} />
+        <div className="flex w-full items-center justify-center gap-5 flex-wrap pb-2">
+          <CallControls onLeave={() => router.push("/")} />
+
+          <DropdownMenu>
+            <div className="flex items-center">
+              <DropdownMenuTrigger className="cursor-pointer rounded-2xl bg-[#19232d] px-4 py-2 hover:bg-[#4c535b]">
+                <LayoutList size={20} className="text-white" />
+              </DropdownMenuTrigger>
+            </div>
+            <DropdownMenuContent className="border-dark-1 bg-dark-1 text-white">
+              {["Grid", "Speaker-Left", "Speaker-Right"].map((item, idx) => (
+                <div
+                  key={idx}
+                >
+                  <DropdownMenuItem 
+                    onClick={() => setLayout(item.toLowerCase() as CallLayoutType)}
+                    className="cursor-pointer"
+                  >
+                    {item}
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator className="border-dark-1" />
+                </div>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <CallStatsButton />
+          <button onClick={() => setShowParticipants((prev) => !prev)}>
+            <div className="cursor-pointer rounded-2xl bg-[#19232d] px-4 py-2 hover:bg-[#4c535b]">
+              <Users size={20} className="text-white" />
+            </div>
+          </button>
+          {!isPersonalRoom && <EndCallButton />}
         </div>
       </div>
-      {/* <Channel /> */}
-      <div className="fixed bottom-0 flex w-full items-center justify-center gap-5 flex-wrap pb-3">
-        <CallControls onLeave={() => router.push("/")} />
-
-        <DropdownMenu>
-          <div className="flex items-center">
-            <DropdownMenuTrigger className="cursor-pointer rounded-2xl bg-[#19232d] px-4 py-2 hover:bg-[#4c535b]">
-              <LayoutList size={20} className="text-white" />
-            </DropdownMenuTrigger>
-          </div>
-          <DropdownMenuContent className="border-dark-1 bg-dark-1 text-white">
-            {["Grid", "Speaker-Left", "Speaker-Right"].map((item, idx) => (
-              <div
-                key={idx}
-              >
-                <DropdownMenuItem 
-                  onClick={() => setLayout(item.toLowerCase() as CallLayoutType)}
-                  className="cursor-pointer"
-                >
-                  {item}
-                </DropdownMenuItem>
-                <DropdownMenuSeparator className="border-dark-1" />
-              </div>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
-        <CallStatsButton />
-        <button onClick={() => setShowParticipants((prev) => !prev)}>
-          <div className="cursor-pointer rounded-2xl bg-[#19232d] px-4 py-2 hover:bg-[#4c535b]">
-            <Users size={20} className="text-white" />
-          </div>
-        </button>
-        {!isPersonalRoom && <EndCallButton />}
+      <div className={cn("max-sm:absolute max-sm:right-0 max-sm:top-0 h-screen hidden", {"show-block": showParticipants})}>
+        <CallParticipantsList onClose={() => setShowParticipants(false)} />
       </div>
+      {/* <Channel /> */}
     </section>
   )
 }

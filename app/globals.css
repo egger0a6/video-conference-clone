@@ -42,11 +42,20 @@
   height: 40px;
 }
 
+.str-video__call-controls {
+  flex-wrap: wrap;
+}
+
+.str-video__speaker-layout__wrapper {
+  max-height: 100%;
+}
+
 .glassmorphism {
   background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
+
 .glassmorphism2 {
   background: rgba(18, 17, 17, 0.25);
   backdrop-filter: blur(8px);
@@ -100,7 +109,7 @@
   width: 100%;
   max-width: 350px;
   display: block;
-  animation: show 0.7s forwards linear;
+  animation: show 0.3s forwards linear;
 }
 
 @keyframes show {
