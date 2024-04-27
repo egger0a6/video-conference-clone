@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { CallControls, CallParticipantsList, CallStatsButton, CallingState, PaginatedGridLayout, SpeakerLayout, useCallStateHooks } from "@stream-io/video-react-sdk";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   DropdownMenu,
@@ -9,22 +9,38 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { LayoutList, Users } from "lucide-react";
+import { LayoutList, MessagesSquare, Users } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import EndCallButton from "./EndCallButton";
 import Loader from "./Loader";
 import Channel from "./Channel";
 
 
-type CallLayoutType = "grid" | "speaker-left" | "speaker-right";
+type CallLayoutType = "grid" | "speaker-left" | "speaker-right" | "speaker-top" | "speaker-bottom";
 
 const MeetingRoom = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isPersonalRoom = !!searchParams.get("personal");
 
-  const [layout, setLayout] = useState<CallLayoutType>("speaker-left");
+  const [layout, setLayout] = useState<CallLayoutType>("speaker-bottom");
   const [showParticipants, setShowParticipants] = useState(false);
+  const [showChat, setShowChat] = useState(false);
+
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    }
+
+    window.addEventListener("resize", handleResize);
+    if (screenWidth <= 640) setLayout("speaker-bottom");
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    }
+  }, [screenWidth]);
 
   const { useCallCallingState } = useCallStateHooks();
   const callingState = useCallCallingState();
@@ -36,6 +52,10 @@ const MeetingRoom = () => {
       case "grid":
         return <PaginatedGridLayout />
       case "speaker-right":
+        return <SpeakerLayout participantsBarPosition="left" />
+      case "speaker-left":
+        return <SpeakerLayout participantsBarPosition="right" />
+      case "speaker-bottom":
         return <SpeakerLayout participantsBarPosition="top" />
       default:
         return <SpeakerLayout participantsBarPosition="bottom" />
@@ -43,7 +63,7 @@ const MeetingRoom = () => {
   }
 
   return (
-    <section className="flex max-sm:relative h-screen w-full overflow-hidden text-white">
+    <section className="relative sm:flex h-screen w-full overflow-hidden text-white">
       <div className="flex flex-col size-full items-center justify-center px-2">
         <div className="flex size-full max-w-[1000px] items-center">
           <CallLayout />
@@ -58,19 +78,24 @@ const MeetingRoom = () => {
               </DropdownMenuTrigger>
             </div>
             <DropdownMenuContent className="border-dark-1 bg-dark-1 text-white">
-              {["Grid", "Speaker-Left", "Speaker-Right"].map((item, idx) => (
-                <div
-                  key={idx}
-                >
-                  <DropdownMenuItem 
-                    onClick={() => setLayout(item.toLowerCase() as CallLayoutType)}
-                    className="cursor-pointer"
+              {["Grid", "Speaker-Left", "Speaker-Right", "Speaker-Top", "Speaker-Bottom"].map((item, idx) => {
+                if (screenWidth <= 640 && (item === "Speaker-Left" || item === "Speaker-Right")) {
+                  return null;
+                }
+                return (
+                  <div
+                    key={idx}
                   >
-                    {item}
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator className="border-dark-1" />
-                </div>
-              ))}
+                    <DropdownMenuItem 
+                      onClick={() => setLayout(item.toLowerCase() as CallLayoutType)}
+                      className="cursor-pointer"
+                    >
+                      {item}
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator className="border-dark-1" />
+                  </div>
+                )
+              })}
             </DropdownMenuContent>
           </DropdownMenu>
           <CallStatsButton />
@@ -79,13 +104,22 @@ const MeetingRoom = () => {
               <Users size={20} className="text-white" />
             </div>
           </button>
+          <button onClick={() => setShowChat((prev) => !prev)}>
+            <div className="cursor-pointer rounded-2xl bg-[#19232d] px-4 py-2 hover:bg-[#4c535b]">
+              <MessagesSquare size={20} className="text-white" />
+            </div>
+          </button>
           {!isPersonalRoom && <EndCallButton />}
         </div>
       </div>
-      <div className={cn("max-sm:absolute max-sm:right-0 max-sm:top-0 h-screen hidden", {"show-block": showParticipants})}>
-        <CallParticipantsList onClose={() => setShowParticipants(false)} />
+      <div>
+        <div className={cn(`absolute right-0 top-0 sm:relative h-screen hidden`, {"show-block-participants": showParticipants})}>
+          <CallParticipantsList onClose={() => setShowParticipants(false)} />
+        </div>
+        <div className={cn(`absolute right-0 top-0 sm:relative h-screen hidden`, {"show-block-chat": showChat})}>
+          <Channel />
+        </div>
       </div>
-      {/* <Channel /> */}
     </section>
   )
 }
