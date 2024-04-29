@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { LayoutList, MessagesSquare, Users } from "lucide-react";
+import { ArrowRightToLine, LayoutList, MessagesSquare, Users} from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import EndCallButton from "./EndCallButton";
 import Loader from "./Loader";
@@ -113,11 +113,19 @@ const MeetingRoom = () => {
         </div>
       </div>
       <div>
-        <div className={cn(`absolute right-0 top-0 sm:relative h-screen hidden`, {"show-block-participants": showParticipants})}>
+        <div className={cn(`absolute right-0 top-0 sm:relative h-screen transition-all transform w-[100vw] sm:max-w-[350px] duration-700 ease-out ${showParticipants ? "sm:w-[30vw] translate-x-[0]" : "w-0 translate-x-[30vw]"}`)}>
           <CallParticipantsList onClose={() => setShowParticipants(false)} />
         </div>
         <div className={cn(`absolute right-0 top-0 sm:relative h-screen hidden`, {"show-block-chat": showChat})}>
-          <Channel />
+          <div className="relative h-screen">
+            <Channel />
+            <button 
+              onClick={() => setShowChat(false)}
+              className="absolute top-1 left-1 cursor-pointer rounded-2xl p-2 text-black hover:bg-[#4c535b] hover:text-white"
+            >
+              <ArrowRightToLine size={24} />
+            </button>
+          </div>
         </div>
       </div>
     </section>
