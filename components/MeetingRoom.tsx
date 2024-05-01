@@ -99,12 +99,18 @@ const MeetingRoom = () => {
             </DropdownMenuContent>
           </DropdownMenu>
           <CallStatsButton />
-          <button onClick={() => setShowParticipants((prev) => !prev)}>
+          <button onClick={() => {
+            setShowParticipants((prev) => !prev);
+            // if (showChat) setShowChat(false);
+          }}>
             <div className="cursor-pointer rounded-2xl bg-[#19232d] px-4 py-2 hover:bg-[#4c535b]">
               <Users size={20} className="text-white" />
             </div>
           </button>
-          <button onClick={() => setShowChat((prev) => !prev)}>
+          <button onClick={() => {
+            setShowChat((prev) => !prev)
+            // if (showParticipants) setShowParticipants(false);
+          }}>
             <div className="cursor-pointer rounded-2xl bg-[#19232d] px-4 py-2 hover:bg-[#4c535b]">
               <MessagesSquare size={20} className="text-white" />
             </div>
@@ -112,22 +118,51 @@ const MeetingRoom = () => {
           {!isPersonalRoom && <EndCallButton />}
         </div>
       </div>
-      <div>
-        <div className={cn(`absolute right-0 top-0 sm:relative h-screen transition-all transform w-[100vw] sm:max-w-[350px] duration-700 ease-out ${showParticipants ? "sm:w-[30vw] translate-x-[0]" : "w-0 translate-x-[30vw]"}`)}>
-          <CallParticipantsList onClose={() => setShowParticipants(false)} />
+      <div className={`absolute right-0 top-0 sm:static transition-all transform w-[100vw] sm:max-w-[350px] duration-700 ease-out ${(showParticipants || showChat) ? 
+        "sm:w-[30vw] translate-x-0" :
+        "w-0 translate-x-[30vw]"
+      }`}>
+        <div className={`${(showParticipants && showChat)
+          ? "h-[50vh]"
+          : showParticipants
+            ? "h-screen"
+            : "h-0"
+        } transition-all duration-500 ease-out`}>
+            <CallParticipantsList onClose={() => setShowParticipants(false)} />
         </div>
-        <div className={cn(`absolute right-0 top-0 sm:relative h-screen hidden`, {"show-block-chat": showChat})}>
-          <div className="relative h-screen">
-            <Channel />
-            <button 
-              onClick={() => setShowChat(false)}
-              className="absolute top-1 left-1 cursor-pointer rounded-2xl p-2 text-black hover:bg-[#4c535b] hover:text-white"
-            >
-              <ArrowRightToLine size={24} />
-            </button>
-          </div>
+        <div className={`relative transform scale-0 ${(showParticipants && showChat) 
+          ? "h-[50vh] scale-100"
+          : showChat
+            ? "h-screen scale-100"
+            : "h-0"
+        } `}>
+          <Channel />
+          <button 
+            onClick={() => setShowChat(false)}
+            className="absolute top-1 left-1 cursor-pointer rounded-2xl p-2 text-black hover:bg-[#4c535b] hover:text-white"
+          >
+            <ArrowRightToLine size={24} />
+          </button>
         </div>
       </div>
+      {/* <div className={cn(`absolute right-0 top-0 sm:static transition-all transform w-[100vw] sm:max-w-[350px] duration-700 ease-out ${showParticipants ? "sm:w-[30vw] translate-x-[0]" : "w-0 translate-x-[30vw]"}`)}>
+          <CallParticipantsList onClose={() => setShowParticipants(false)} />
+      </div>
+      <div className={cn(`absolute sm:relative mt-[50%] transition-all transform w-[100vw] sm:max-w-[350px] duration-700 ease-out ${showChat 
+          ? "sm:w-[30vw] translate-x-[0]" 
+          : showParticipants 
+            ? "w-0 translate-x-[30vw] bottom-0 h-[50vh]" 
+            : "w-0 translate-x-[30vw]"}`)}>
+        <div className={`relative ${showParticipants && "h-[50vh]"}`}>
+          <Channel />
+          <button 
+            onClick={() => setShowChat(false)}
+            className="absolute top-1 left-1 cursor-pointer rounded-2xl p-2 text-black hover:bg-[#4c535b] hover:text-white"
+          >
+            <ArrowRightToLine size={24} />
+          </button>
+        </div>
+      </div> */}
     </section>
   )
 }
