@@ -1,13 +1,13 @@
-import { Channel as ChatChannel, MessageInput, MessageList, Thread, Window, useChatContext } from "stream-chat-react";
+import { Channel as ChatChannel, MessageInput, MessageList, Thread, Window } from "stream-chat-react";
 
-const Channel = () => {
-  const { client } = useChatContext();
-  console.log(client)
-  const id = crypto.randomUUID();
+const Channel = ({ channel }: any) => {
+  // const { client } = useChatContext();
+  // console.log(client)
+  // const id = crypto.randomUUID();
 
-  const channel = client.channel("livestream", id, {
-    name: `call`
-  });
+  // const channel = client.channel("livestream", id, {
+  //   name: `call`
+  // });
 
   return (
     <ChatChannel channel={channel}>

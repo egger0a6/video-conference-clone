@@ -8,6 +8,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Textarea } from "./ui/textarea";
 import ReactDatePicker from "react-datepicker";
 import { Input } from "./ui/input";
+import { useChatContext } from "stream-chat-react";
 
 const MeetingTypeList = () => {
   const router = useRouter();
@@ -23,6 +24,8 @@ const MeetingTypeList = () => {
 
   const {user} = useUser();
   const client = useStreamVideoClient();
+  const { client: chatClient } = useChatContext();
+  //console.log(chatClient)
 
   const createMeeting = async () => {
     if (!client || !user) return;
@@ -37,6 +40,11 @@ const MeetingTypeList = () => {
 
       const id = crypto.randomUUID();
       const call = client.call("default", id);
+      const channel = chatClient.channel("livestream", id, {
+        name: `${user?.username || user?.id}_call-${id.slice(-4)}`
+      });
+      channel.watch();
+      console.log(channel)
 
       if (!call) throw new Error("Failed to create call");
 

@@ -104,33 +104,3 @@
 }
 
 /* animation */
-
-/* .show-block-participants {
-  width: min-content;
-  width: 350px;
-  
-  
-} */
-
-.show-block-participants {
-  
-}
-
-.show-block-chat {
-  width: 100%;
-  max-width: 350px;
-  display: block;
-  animation: show 0.3s forwards linear;
-}
-
-@keyframes show {
-  0% {
-    animation-timing-function: ease-in;
-    width: 0%;
-  }
-
-  100% {
-    animation-timing-function: ease-out;
-    width: 100%;
-  }
-}
