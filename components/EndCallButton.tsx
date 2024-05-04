@@ -5,7 +5,6 @@ import { useChatContext } from "stream-chat-react";
 
 const EndCallButton = () => {
   const call = useCall();
-  console.log(call)
   const router = useRouter();
   const {client: chatClient} = useChatContext();
 
@@ -22,10 +21,14 @@ const EndCallButton = () => {
     <Button 
       onClick={async () => {
         const chatChannels = await chatClient.queryChannels({id: call.id});
-        if (chatChannels.length > 0) {
+        const chatChannel = chatChannels[0];
+        await chatChannel.stopWatching();
+        if (chatChannel) {
           try {
-            // TODO change to truncate channel maybe?
-            chatChannels[0].delete();
+            chatChannel.update(
+              {frozen: true},
+              {text: "Call has ended"},
+            );
           } catch (error) {
             console.log(error);
           }

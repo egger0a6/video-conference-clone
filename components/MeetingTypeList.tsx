@@ -44,7 +44,6 @@ const MeetingTypeList = () => {
         name: `${user?.username || user?.id}_call-${id.slice(-4)}`
       });
       channel.watch();
-      console.log(channel)
 
       if (!call) throw new Error("Failed to create call");
 
@@ -86,28 +85,28 @@ const MeetingTypeList = () => {
         title="New Meeting"
         description="Start a meeting instantly"
         handleClick={() => setMeetingState("isInstantMeeting")}
-        className="bg-orange-1"
+        className="bg-red-1"
       />
       <HomeCard 
         img="/icons/schedule.svg"
         title="Schedule Meeting"
         description="Plan your meeting"
         handleClick={() => setMeetingState("isScheduleMeeting")}
-        className="bg-blue-1"
+        className="bg-blue-2"
       />
       <HomeCard 
         img="/icons/recordings.svg"
         title="View Recordings"
         description="Check out your recordings"
         handleClick={() => router.push("/recordings")}
-        className="bg-purple-1"
+        className="bg-green-1"
       />
       <HomeCard
         img="/icons/join-meeting.svg"
         title="Join Meeting"
         description="via invitation link"
         handleClick={() => setMeetingState("isJoiningMeeting")}
-        className="bg-yellow-1"
+        className="bg-orange-2"
       />
 
       {!callDetails ? (

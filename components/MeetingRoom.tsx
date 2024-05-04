@@ -13,11 +13,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import EndCallButton from "./EndCallButton";
 import Loader from "./Loader";
 import Channel from "./Channel";
+import { Channel as ChannelTypes } from "stream-chat";
 
 
 type CallLayoutType = "grid" | "speaker-left" | "speaker-right" | "speaker-top" | "speaker-bottom";
 
-const MeetingRoom = () => {
+const MeetingRoom = ({ channel }: {channel: ChannelTypes}) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isPersonalRoom = !!searchParams.get("personal");
@@ -133,7 +134,7 @@ const MeetingRoom = () => {
             ? "h-screen scale-100"
             : "h-0"
         } `}>
-          {/* <Channel /> */}
+          <Channel channel={channel} />
           <button 
             onClick={() => setShowChat(false)}
             className="absolute top-1 left-1 cursor-pointer rounded-2xl p-2 text-black hover:bg-[#4c535b] hover:text-white"
