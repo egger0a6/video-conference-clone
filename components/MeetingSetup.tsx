@@ -4,20 +4,40 @@ import { Button } from "./ui/button";
 
 const MeetingSetup = ({ setIsSetupComplete }: { setIsSetupComplete: (value: boolean) => void}) => {
   const [isMicCamToggledOn, setIsMicCamToggledOn] = useState(false);
+  const [cameras, setCameras] = useState<MediaDeviceInfo[]>([]);
+  const [microphones, setMicrophones] = useState<MediaDeviceInfo[]>([]);
 
   const call = useCall();
 
   if (!call) {
     throw new Error("usecall must be used within StreamCall component");
   }
-
+  
   useEffect(() => {
+    const checkCameraDevices = async () => {
+      try {
+        await navigator.mediaDevices.getUserMedia({audio: true, video: true});
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const cameras = devices.filter(device => device.kind === "videoinput");
+        const microphones = devices.filter(device => device.kind === "audioinput");
+        if (cameras.length > 0 && !isMicCamToggledOn) call?.camera.enable();
+        if (microphones.length > 0 && !isMicCamToggledOn) call?.microphone.enable();
+        setCameras(cameras);
+        setMicrophones(microphones);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    checkCameraDevices();
+    
     if (isMicCamToggledOn) {
       call?.camera.disable();
       call?.microphone.disable();
     } else {
-      call?.camera.enable();
-      call?.microphone.enable();
+      if (cameras.length > 0) call?.camera.enable();
+      // call?.camera.enable();
+      if (microphones.length > 0) call?.microphone.enable();
+      // call?.microphone.enable();
     }
   }, [isMicCamToggledOn, call?.camera, call?.microphone]);
 
