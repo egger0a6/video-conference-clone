@@ -30,7 +30,37 @@ export const StreamVideoProvider = ({ children }: { children: ReactNode}) => {
         image: user?.imageUrl,
       },
       tokenProvider,
-    )
+    );
+
+    // const updateUserRole = async () => {
+    //   const query = await newChatClient.queryUsers({id: user.id});
+    //   console.log(query)
+      
+    //   if (query.users[0].role !== "user") {
+    //     await newChatClient.partialUpdateUser({
+    //       id: user.id,
+    //       set: {
+    //         role: "user",
+    //       },
+    //     });
+    //   }
+    // }
+    // updateUserRole();
+
+    // function fetchUser() {
+    //   return new Promise((resolve, reject) => {
+    //     const response = newChatClient.queryUsers({}, {});
+    //     resolve(response)
+    //   })
+    // }
+
+    // fetchUser()
+    //   .then(response => {
+    //     console.log(response)
+    //   })
+    //   .catch(error => {
+    //     console.log(error)
+    //   }) 
 
     const newVideoClient = new StreamVideoClient({
       apiKey,

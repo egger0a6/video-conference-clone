@@ -9,32 +9,6 @@ const Home = () => {
   const [time, setTime] = useState(now.toLocaleTimeString("en-US", {hour: "2-digit", minute: "2-digit"}));
   const [date, setDate] = useState((new Intl.DateTimeFormat("en-US", {dateStyle: "full"})).format(now));
 
-  // const client = useChatContext();
-  
-  // useEffect(() => {
-  //   const getChannels = async () => {
-  //       const channels = await client.client.queryChannels({type: "livestream"}, {}, {limit: 30})
-  //         try {
-  //           console.log(channels ? channels : "no channels")
-  //           channels?.forEach(async (channel) => {
-  //             try {
-  //               // const response = await client.client.deleteChannels([channel?.cid], {hard_delete: true})
-  //               // console.log(response.result)
-  //               const destroy = channel?.delete();
-  //               console.log(destroy)
-  //             } catch (error) {
-                
-  //             }
-  //           })
-  //         } catch (error) {
-  //           console.log(error)
-  //         }
-  //   }
-
-  //   getChannels();
-    
-  // }, [])
-
   // Variables used if not implementing clock that updates in realtime:
   // const time = now.toLocaleTimeString("en-US", {hour: "2-digit", minute: "2-digit"});
   // const date = (new Intl.DateTimeFormat("en-US", {dateStyle: "full"})).format(now);

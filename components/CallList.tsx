@@ -64,10 +64,6 @@ const CallList = ({ type }: {type: "ended" | "upcoming" | "recordings"}) => {
 
   const calls = getCalls();
   const noCallsMessage = getNoCallsMessage();
-  console.log(calls[0]?.state.members)
-  console.log(calls[0] ? calls[0].state.participants : "")
-  // console.log(recordings[0])
-
 
   if (isLoading) return <Loader />
 

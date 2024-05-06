@@ -25,7 +25,6 @@ const MeetingTypeList = () => {
   const {user} = useUser();
   const client = useStreamVideoClient();
   const { client: chatClient } = useChatContext();
-  //console.log(chatClient)
 
   const createMeeting = async () => {
     if (!client || !user) return;
@@ -43,7 +42,8 @@ const MeetingTypeList = () => {
       const channel = chatClient.channel("livestream", id, {
         name: `${user?.username || user?.id}_call-${id.slice(-4)}`
       });
-      channel.watch();
+      await channel.watch();
+      await channel.addMembers([{user_id: user.id, channel_role: "channel_moderator"}]);
 
       if (!call) throw new Error("Failed to create call");
 

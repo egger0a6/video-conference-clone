@@ -2,13 +2,7 @@ import { Channel as ChannelTypes } from "stream-chat";
 import { Channel as ChatChannel, MessageInput, MessageList, Thread, Window } from "stream-chat-react";
 
 const Channel = ({ channel }: {channel: ChannelTypes}) => {
-  // const { client } = useChatContext();
-  // console.log(client)
-  // const id = crypto.randomUUID();
-
-  // const channel = client.channel("livestream", id, {
-  //   name: `call`
-  // });
+  console.log(channel.queryMembers({}, {}, {}))
 
   return (
     <ChatChannel channel={channel}>
