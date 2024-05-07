@@ -16,12 +16,9 @@ const MeetingSetup = ({ setIsSetupComplete }: { setIsSetupComplete: (value: bool
   useEffect(() => {
     const checkCameraDevices = async () => {
       try {
-        await navigator.mediaDevices.getUserMedia({audio: true, video: true});
         const devices = await navigator.mediaDevices.enumerateDevices();
         const cameras = devices.filter(device => device.kind === "videoinput");
         const microphones = devices.filter(device => device.kind === "audioinput");
-        if (cameras.length > 0 && !isMicCamToggledOn) call?.camera.enable();
-        if (microphones.length > 0 && !isMicCamToggledOn) call?.microphone.enable();
         setCameras(cameras);
         setMicrophones(microphones);
       } catch (error) {
@@ -29,7 +26,7 @@ const MeetingSetup = ({ setIsSetupComplete }: { setIsSetupComplete: (value: bool
       }
     }
     checkCameraDevices();
-    
+
     if (isMicCamToggledOn) {
       call?.camera.disable();
       call?.microphone.disable();
@@ -39,7 +36,7 @@ const MeetingSetup = ({ setIsSetupComplete }: { setIsSetupComplete: (value: bool
       if (microphones.length > 0) call?.microphone.enable();
       // call?.microphone.enable();
     }
-  }, [isMicCamToggledOn, call?.camera, call?.microphone]);
+  }, [isMicCamToggledOn, call?.camera, call?.microphone, cameras.length, microphones.length]);
 
   return (
     <div className="flex h-screen w-full flex-col items-center justify-center gap-3 text-white">
