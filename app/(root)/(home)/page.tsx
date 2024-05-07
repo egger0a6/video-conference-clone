@@ -3,7 +3,6 @@
 import MeetingTypeList from "@/components/MeetingTypeList";
 import { useGetCalls } from "@/hooks/useGetCalls";
 import { useEffect, useState } from "react";
-import { useChatContext } from "stream-chat-react";
 
 const Home = () => {
   const now = new Date();
@@ -32,10 +31,10 @@ const Home = () => {
     <section className="flex size-full flex-col gap-10 text-white">
       <div className="h-[300px] w-full rounded-[20px] bg-hero bg-cover">
         <div className="flex h-full flex-col justify-between px-5 py-8 lg:p-11">
-          <h2 className="glassmorphism max-w-[270px] rounded py-2 text-center text-base font-normal whitespace-pre-wrap">
+          <h2 className="glassmorphism max-w-[275px] rounded py-2 text-start text-base font-normal whitespace-pre-wrap">
             {
               (upcomingCalls.length > 0)
-                ? `Upcoming Meeting: \n ${upcomingCalls[0].state?.startsAt!.toLocaleString(
+                ? ` Upcoming Meeting: \n ${upcomingCalls[0].state?.startsAt!.toLocaleString(
                   "en-us", {weekday: "long", month: "long", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit"}
                 )}`
                 : "No Upcoming Meetings"

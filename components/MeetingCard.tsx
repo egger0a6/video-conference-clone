@@ -1,10 +1,16 @@
+"use client"
+
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { toast } from "./ui/use-toast";
 import { avatarImages } from "@/constants";
+import { useEffect, useState } from "react";
+import { useGetChannelById } from "@/hooks/useGetChannelById";
+import Loader from "./Loader";
 
 interface MeetingCardProps {
+  id: string;
   title: string;
   date: string;
   icon: string;
@@ -13,12 +19,22 @@ interface MeetingCardProps {
   buttonText?: string;
   handleClick: () => void;
   link: string;
+  hostImg: string;
 }
 
-const MeetingCard = ({ title, date, icon, isPreviousMeeting, buttonIcon1, buttonText, handleClick, link }: MeetingCardProps) => {
+const MeetingCard = ({ id, title, date, icon, isPreviousMeeting, buttonIcon1, buttonText, handleClick, link, hostImg }: MeetingCardProps) => {
+  const [members, setMembers] = useState();
+  const {channel, isChannelLoading} = useGetChannelById(id);
+
+  useEffect(() => {
+    console.log(channel)
+  });
+
+  if (isChannelLoading) return <Loader />
+
   return (
     <section className="px-6 py-8 flex flex-col justify-between w-full bg-dark-1 rounded-[14px] min-h-[258px] xl:max-w-[568px]">
-      <article className="flex flex-col gap-5">
+      <article className="flex flex-col gap-5 mb-3">
         <Image 
           src={icon}
           alt="meeting type"
@@ -31,7 +47,18 @@ const MeetingCard = ({ title, date, icon, isPreviousMeeting, buttonIcon1, button
             <p className="text-base font-normal">{date}</p>
           </div>
         </div>
+        <div className="flex flex-row items-center gap-2">
+          <h2 className="font-semibold">Host:</h2>
+          <Image 
+            src={hostImg}
+            alt="host profile picture"
+            width={40}
+            height={40}
+            className="rounded-full"
+          />
+        </div>
       </article>
+      <div className="flex-grow border-t border-gray-700 mb-3"></div>
       <article className={cn("flex justify-center relative", {})}>
         <div className="relative flex w-full max-sm:hidden">
           {avatarImages.map((img, idx) => (

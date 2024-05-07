@@ -1,12 +1,12 @@
 import { useCall, useCallStateHooks } from "@stream-io/video-react-sdk";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
-import { useChatContext } from "stream-chat-react";
+import { useGetChannelById } from "@/hooks/useGetChannelById";
 
 const EndCallButton = () => {
   const call = useCall();
   const router = useRouter();
-  const {client: chatClient} = useChatContext();
+  const {channel} = useGetChannelById(call?.id!);
 
   const { useLocalParticipant } = useCallStateHooks();
   const localParticipant = useLocalParticipant();
@@ -15,17 +15,15 @@ const EndCallButton = () => {
     call?.state.createdBy && 
     localParticipant.userId === call.state.createdBy.id;
 
-    if (!isMeetingOwner) return null;
+  if (!isMeetingOwner) return null;
 
   return (
     <Button 
       onClick={async () => {
-        const chatChannels = await chatClient.queryChannels({id: call.id});
-        const chatChannel = chatChannels[0];
-        await chatChannel.stopWatching();
-        if (chatChannel) {
+        await channel!.stopWatching();
+        if (channel) {
           try {
-            chatChannel.update(
+            channel.update(
               {frozen: true},
               {text: "Call has ended"},
             );
