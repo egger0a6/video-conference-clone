@@ -6,7 +6,7 @@ import MeetingSetup from "@/components/MeetingSetup";
 import { useGetCallById } from "@/hooks/useGetCallById";
 import { useGetChannelById } from "@/hooks/useGetChannelById";
 import { useUser } from "@clerk/nextjs";
-import { StreamCall, StreamTheme } from "@stream-io/video-react-sdk";
+import { BackgroundFiltersProvider, StreamCall, StreamTheme } from "@stream-io/video-react-sdk";
 import { useEffect, useState } from "react";
 
 const Meeting = ({ params: {id} }: { params: { id: string } }) => {
@@ -31,13 +31,18 @@ const Meeting = ({ params: {id} }: { params: { id: string } }) => {
   return (
     <main className="h-screen w-full">
       <StreamCall call={call}>
-        <StreamTheme>
-          {!isSetuppComplete ? (
-            <MeetingSetup setIsSetupComplete={setIsSetupComplete} />
-          ) : (
-            <MeetingRoom channel={channel!} />
-          )}
-        </StreamTheme>
+        <BackgroundFiltersProvider
+          isBlurringEnabled={true}
+          backgroundFilter="blur"
+        >
+          <StreamTheme>
+            {!isSetuppComplete ? (
+              <MeetingSetup setIsSetupComplete={setIsSetupComplete} />
+            ) : (
+              <MeetingRoom channel={channel!} />
+            )}
+          </StreamTheme>
+        </BackgroundFiltersProvider>
       </StreamCall>
     </main>
   )

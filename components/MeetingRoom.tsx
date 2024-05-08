@@ -14,6 +14,7 @@ import EndCallButton from "./EndCallButton";
 import Loader from "./Loader";
 import Channel from "./Channel";
 import { Channel as ChannelTypes } from "stream-chat";
+import BackgroundFilterSettings from "./BackgroundFilterSettings";
 
 
 type CallLayoutType = "grid" | "speaker-left" | "speaker-right" | "speaker-top" | "speaker-bottom";
@@ -77,6 +78,7 @@ const MeetingRoom = ({ channel }: {channel: ChannelTypes}) => {
                 <LayoutList size={20} className="text-white" />
               </DropdownMenuTrigger>
             </div>
+            <BackgroundFilterSettings />
             <DropdownMenuContent className="border-dark-1 bg-dark-1 text-white">
               {["Grid", "Speaker-Left", "Speaker-Right", "Speaker-Top", "Speaker-Bottom"].map((item, idx) => {
                 if (screenWidth <= 640 && (item === "Speaker-Left" || item === "Speaker-Right")) {
