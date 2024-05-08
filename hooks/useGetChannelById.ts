@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react"
 import { Channel } from "stream-chat";
 import { useChatContext } from "stream-chat-react";
@@ -15,7 +14,7 @@ export const useGetChannelById = (id: string) => {
 
     const loadChannel = async () => {
       const channels = await client.queryChannels({
-        id: id
+        id: id,
       });
 
       if (channels.length > 0) setChannel(channels[0]);

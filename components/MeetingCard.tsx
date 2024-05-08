@@ -4,10 +4,8 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { toast } from "./ui/use-toast";
-import { avatarImages } from "@/constants";
-import { useEffect, useState } from "react";
-import { useGetChannelById } from "@/hooks/useGetChannelById";
 import Loader from "./Loader";
+import { useGetChannelMembers } from "@/hooks/useGetChannelMembers";
 
 interface MeetingCardProps {
   id: string;
@@ -23,14 +21,10 @@ interface MeetingCardProps {
 }
 
 const MeetingCard = ({ id, title, date, icon, isPreviousMeeting, buttonIcon1, buttonText, handleClick, link, hostImg }: MeetingCardProps) => {
-  const [members, setMembers] = useState();
-  const {channel, isChannelLoading} = useGetChannelById(id);
+  const {members, isMembersLoading, memberCount} = useGetChannelMembers(id);
+  console.log(memberCount)
 
-  useEffect(() => {
-    console.log(channel)
-  });
-
-  if (isChannelLoading) return <Loader />
+  if (isMembersLoading) return <Loader />;
 
   return (
     <section className="px-6 py-8 flex flex-col justify-between w-full bg-dark-1 rounded-[14px] min-h-[258px] xl:max-w-[568px]">
@@ -60,21 +54,29 @@ const MeetingCard = ({ id, title, date, icon, isPreviousMeeting, buttonIcon1, bu
       </article>
       <div className="flex-grow border-t border-gray-700 mb-3"></div>
       <article className={cn("flex justify-center relative", {})}>
-        <div className="relative flex w-full max-sm:hidden">
-          {avatarImages.map((img, idx) => (
-            <Image 
-              key={idx}
-              src={img}
-              alt="participants"
-              width={40}
-              height={40}
-              className={cn("rounded-full", {absolute: idx > 0})}
-              style={{top: 0, left: idx * 28}}
-            />
-          ))}
-          <div className="flex-center absolute left-[136px] size-10 rounded-full border-[5px] border-dark-3 bg-dark-4">
-            +5
-          </div>
+        <div className="relative sm:flex w-full hidden">
+          {(members && members.length > 0) 
+            ? members.map((member, idx) => {
+              let user = JSON.parse(JSON.stringify(member.user));
+              return (
+                <Image 
+                  key={member.user_id}
+                  src={user.image}
+                  alt="member profile picture"
+                  width={40}
+                  height={40}
+                  className={cn("rounded-full", {absolute: idx > 0})}
+                  style={{top: 0, left: idx * 28}}
+                />
+              )
+            })
+            : "No Meeting Members"
+          }
+          {(memberCount > 0) && (
+            <div className="flex-center absolute left-[136px] size-10 rounded-full border-[5px] border-dark-3 bg-dark-4">
+              +{memberCount}
+            </div>
+          )}
         </div>
         {!isPreviousMeeting && (
           <div className="flex gap-2">
