@@ -21,8 +21,13 @@ export const useGetChannelMembers = (id: string) => {
       if (channels.length > 0) {
         if (channels[0].data?.member_count === 0) return;
         let {members} = await channels[0].queryMembers({});
-        members = members.filter((member) => member.user_id !== user?.id).slice(6);
-        if (members.length > 6) setMemberCount(members.length - 6);
+        members = members.filter((member) => member.user_id !== user?.id).slice(0, 6);
+        console.log(members)
+        if (members.length > 6) {
+          setMemberCount(members.length - 6);
+        } else {
+          setMemberCount(members.length);
+        }
         if (members.length > 0) {
           setMembers(members);
         }

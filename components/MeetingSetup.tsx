@@ -32,9 +32,7 @@ const MeetingSetup = ({ setIsSetupComplete }: { setIsSetupComplete: (value: bool
       call?.microphone.disable();
     } else {
       if (cameras.length > 0) call?.camera.enable();
-      // call?.camera.enable();
       if (microphones.length > 0) call?.microphone.enable();
-      // call?.microphone.enable();
     }
   }, [isMicCamToggledOn, call?.camera, call?.microphone, cameras.length, microphones.length]);
 

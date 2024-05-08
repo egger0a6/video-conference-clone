@@ -72,9 +72,9 @@ const MeetingCard = ({ id, title, date, icon, isPreviousMeeting, buttonIcon1, bu
             })
             : "No Meeting Members"
           }
-          {(memberCount > 0) && (
+          {(memberCount > 6) && (
             <div className="flex-center absolute left-[136px] size-10 rounded-full border-[5px] border-dark-3 bg-dark-4">
-              +{memberCount}
+              +{memberCount - 6}
             </div>
           )}
         </div>
