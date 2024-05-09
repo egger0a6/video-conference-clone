@@ -15,11 +15,11 @@ const BackgroundFilterSettings = () => {
   } = useBackgroundFilters();
 
   if (!isSupported) {
-    return <div>Background filters are not supported on this device.</div>
+    return <div>Background filters are not supported on this device.</div>;
   }
 
   if (!isReady) {
-    return <Loader />
+    return <Loader />;
   }
 
   return (
@@ -54,7 +54,7 @@ const BackgroundFilterSettings = () => {
             Medium Blur
           </DropdownMenuItem>
           <DropdownMenuSeparator className="border-dark-1" />
-          
+
           <DropdownMenuItem
             onClick={() => applyBackgroundBlurFilter("low")}
             className='cursor-pointer'
