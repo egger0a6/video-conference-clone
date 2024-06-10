@@ -30,20 +30,6 @@ export const sidebarLinks = [
   },
 ];
 
-export const callBackgroundImages = [
-  blackGrayGeomety,
-  blueGradient,
-  brownWorkdesk,
-  cyanPurplePinkGradient,
-  garden,
-  greenModern,
-  mesa,
-  mountains,
-  outerSpace,
-  tent,
-  tropicalBeach,
-];
-
 export const callBackgroundImageInfo = [
   {
     id: "0",

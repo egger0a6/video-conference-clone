@@ -1,8 +1,10 @@
 import { useBackgroundFilters } from '@stream-io/video-react-sdk'
 import React from 'react'
 import Loader from './Loader';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
-import { Sparkles } from 'lucide-react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from './ui/dropdown-menu';
+import { Image as ImageIcon, ImageOff, Sparkles } from 'lucide-react';
+import Image from "next/image";
+import { callBackgroundImageInfo } from '@/constants';
 
 const BackgroundFilterSettings = () => {
   const {
@@ -62,6 +64,37 @@ const BackgroundFilterSettings = () => {
             Low Blur
           </DropdownMenuItem>
           <DropdownMenuSeparator className="border-dark-1" />
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
+              <ImageIcon className='mr-2 h-4 w-4' />
+              <span>Background Images</span>
+            </DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent className='border-dark-1 bg-dark-1 text-white'>
+                {backgroundImages?.map((image, idx) => (
+                  <DropdownMenuItem 
+                    key={callBackgroundImageInfo[idx].id}
+                    onClick={() => applyBackgroundImageFilter(image)}
+                    className='cursor-pointer flex gap-2'
+                  >
+                    <Image 
+                      src={image}
+                      alt={callBackgroundImageInfo[idx].title}
+                      width={28}
+                      height={16}
+                    />
+                    {callBackgroundImageInfo[idx].title}
+                  </DropdownMenuItem>
+                ))}
+                <DropdownMenuItem
+                  onClick={disableBackgroundFilter}
+                >
+                  <ImageOff className='mr-2 h-4 w-4' />
+                  <span>None</span>
+                </DropdownMenuItem>
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
