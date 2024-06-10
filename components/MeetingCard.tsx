@@ -92,7 +92,7 @@ const MeetingCard = ({ id, title, date, icon, isPreviousMeeting, buttonIcon1, bu
                   height={20}
                 />
               )}
-              &nbsp; {buttonText}
+              {buttonText}
             </Button>
             <Button
               onClick={() => {
@@ -101,7 +101,7 @@ const MeetingCard = ({ id, title, date, icon, isPreviousMeeting, buttonIcon1, bu
                   title: "Link Copied"
                 });
               }}
-              className="bg-purple-2 px-6"
+              className="bg-purple-3 px-6"
             >
               <Image 
                 src="/icons/copy.svg"
