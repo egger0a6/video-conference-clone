@@ -82,7 +82,7 @@ const MeetingCard = ({ id, title, date, icon, isPreviousMeeting, buttonIcon1, bu
           <div className="flex gap-2">
             <Button
               onClick={handleClick}
-              className="rounded bg-blue-1 px-6"
+              className="rounded bg-purple-1 px-6"
             >
               {buttonIcon1 && (
                 <Image 
@@ -101,7 +101,7 @@ const MeetingCard = ({ id, title, date, icon, isPreviousMeeting, buttonIcon1, bu
                   title: "Link Copied"
                 });
               }}
-              className="bg-dark-4 px-6"
+              className="bg-purple-2 px-6"
             >
               <Image 
                 src="/icons/copy.svg"
