@@ -3,11 +3,12 @@
 import Loader from "@/components/Loader";
 import MeetingRoom from "@/components/MeetingRoom";
 import MeetingSetup from "@/components/MeetingSetup";
+import { useAddChatMember } from "@/hooks/useAddChatMember";
 import { useGetCallById } from "@/hooks/useGetCallById";
 import { useGetChannelById } from "@/hooks/useGetChannelById";
 import { useUser } from "@clerk/nextjs";
 import { BackgroundFiltersProvider, StreamCall, StreamTheme } from "@stream-io/video-react-sdk";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Meeting = ({ params: { id } }: { params: { id: string } }) => {
   const { user, isLoaded } = useUser();
@@ -15,18 +16,9 @@ const Meeting = ({ params: { id } }: { params: { id: string } }) => {
 
   const { call, isCallLoading } = useGetCallById(id);
   const { channel, isChannelLoading } = useGetChannelById(id);
+  const isAddingMember = useAddChatMember(user, channel);
 
-  useEffect(() => {
-    const addMember = async () => {
-      const query = await channel?.queryMembers({ id: user?.id });
-      if (!query?.members.length) {
-        await channel?.addMembers([{ user_id: user?.id!, channel_role: "channel_member" }]);
-      }
-    }
-    addMember();
-  }, [user, channel]);
-
-  if (!isLoaded || isCallLoading || isChannelLoading) return <Loader />
+  if (!isLoaded || isCallLoading || isChannelLoading || isAddingMember) return <Loader />
 
   return (
     <main className="h-screen w-full">

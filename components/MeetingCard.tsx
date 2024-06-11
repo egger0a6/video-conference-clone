@@ -22,7 +22,6 @@ interface MeetingCardProps {
 
 const MeetingCard = ({ id, title, date, icon, isPreviousMeeting, buttonIcon1, buttonText, handleClick, link, hostImg }: MeetingCardProps) => {
   const {members, isMembersLoading, memberCount} = useGetChannelMembers(id);
-  console.log(memberCount)
 
   if (isMembersLoading) return <Loader />;
 

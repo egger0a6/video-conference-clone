@@ -2,6 +2,7 @@ import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react"
 import { ChannelMemberResponse } from "stream-chat";
 import { useChatContext } from "stream-chat-react";
+import { useGetChannelById } from "./useGetChannelById";
 
 export const useGetChannelMembers = (id: string) => {
   const [members, setMembers] = useState<ChannelMemberResponse[]>([]);
@@ -10,17 +11,15 @@ export const useGetChannelMembers = (id: string) => {
 
   const { user } = useUser();
   const { client } = useChatContext();
+  const { channel } = useGetChannelById(id);
+
   useEffect(() => {
-    if (!client) return;
+    if (!client || !user?.id || !channel) return;
 
     const loadMembers = async () => {
-      const channels = await client.queryChannels({
-        id: id,
-      });
-
-      if (channels.length > 0) {
-        if (channels[0].data?.member_count === 0) return;
-        let {members} = await channels[0].queryMembers({});
+      if (channel) {
+        if (channel.data?.member_count === 0) return;
+        let {members} = await channel.queryMembers({});
         members = members.filter((member) => member.user_id !== user?.id).slice(0, 6);
         if (members.length > 6) {
           setMemberCount(members.length - 6);
@@ -36,7 +35,7 @@ export const useGetChannelMembers = (id: string) => {
     }
     
     loadMembers();
-  }, [client, user, id]);
+  }, [client, user, id, channel]);
 
   return {members, isMembersLoading, memberCount};
 }

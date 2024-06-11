@@ -31,7 +31,7 @@ const Home = () => {
     <section className="flex size-full flex-col gap-12 text-white">
       <div className="h-[300px] w-full rounded-[20px] bg-hero bg-cover">
         <div className="flex h-full flex-col justify-between px-5 py-8 lg:p-11">
-          <h2 className="glassmorphism max-w-[300px] rounded py-2 text-start text-base font-normal whitespace-pre-wrap px-1 lg:mb-6">
+          <h2 className="glassmorphism max-w-[300px] rounded-[8px] py-2 text-start text-base font-normal whitespace-pre-wrap pl-2 lg:mb-6">
             {
               (upcomingCalls.length > 0)
                 ? `Upcoming Meeting: \n${upcomingCalls[0].state?.startsAt!.toLocaleString(
