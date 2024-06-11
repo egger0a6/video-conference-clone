@@ -80,9 +80,10 @@ const CallList = ({ type }: {type: "ended" | "upcoming" | "recordings"}) => {
                   type === "upcoming" ?
                     "/icons/upcoming.svg" :
                     "/icons/recordings.svg"
-                }
+              }
               title={meeting.state?.custom?.description?.substring(0, 26) || meeting?.filename?.substring(0, 20) || "Personal Meeting"}
               date={meeting.state?.startsAt.toLocaleString() || meeting.start_time.toLocaleString()}
+              hostName={meeting.state?.createdBy.name}
               hostImg={meeting.state?.createdBy.image}
               isPreviousMeeting={type === "ended"}
               buttonIcon1={type === "recordings" ? "/icons/play.svg" : null}

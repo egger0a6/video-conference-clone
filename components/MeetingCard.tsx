@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { toast } from "./ui/use-toast";
 import Loader from "./Loader";
 import { useGetChannelMembers } from "@/hooks/useGetChannelMembers";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 
 interface MeetingCardProps {
   id: string;
@@ -18,17 +19,18 @@ interface MeetingCardProps {
   handleClick: () => void;
   link: string;
   hostImg: string;
+  hostName: string;
 }
 
-const MeetingCard = ({ id, title, date, icon, isPreviousMeeting, buttonIcon1, buttonText, handleClick, link, hostImg }: MeetingCardProps) => {
-  const {members, isMembersLoading, memberCount} = useGetChannelMembers(id);
+const MeetingCard = ({ id, title, date, icon, isPreviousMeeting, buttonIcon1, buttonText, handleClick, link, hostImg, hostName }: MeetingCardProps) => {
+  const { members, isMembersLoading, memberCount } = useGetChannelMembers(id);
 
   if (isMembersLoading) return <Loader />;
 
   return (
     <section className="px-6 py-8 flex flex-col justify-between w-full bg-dark-1 rounded-[14px] min-h-[258px] xl:max-w-[568px]">
       <article className="flex flex-col gap-5 mb-3">
-        <Image 
+        <Image
           src={icon}
           alt="meeting type"
           width={28}
@@ -42,31 +44,48 @@ const MeetingCard = ({ id, title, date, icon, isPreviousMeeting, buttonIcon1, bu
         </div>
         <div className="flex flex-row items-center gap-2">
           <h2 className="font-semibold">Host:</h2>
-          <Image 
-            src={hostImg}
-            alt="host profile picture"
-            width={40}
-            height={40}
-            className="rounded-full"
-          />
+          <TooltipProvider>
+            <Tooltip delayDuration={300}>
+              <TooltipTrigger>
+                <Image
+                  src={hostImg}
+                  alt="host profile picture"
+                  width={40}
+                  height={40}
+                  className="rounded-full"
+                />
+              </TooltipTrigger>
+              <TooltipContent className="bg-purple-1 font-semibold">
+                {hostName}
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
       </article>
       <div className="flex-grow border-t border-gray-700 mb-3"></div>
       <article className={cn("flex justify-center relative", {})}>
         <div className="relative sm:flex w-full hidden">
-          {(members && members.length > 0) 
+          {(members && members.length > 0)
             ? members.map((member, idx) => {
               let user = JSON.parse(JSON.stringify(member.user));
               return (
-                <Image 
-                  key={member.user_id}
-                  src={user.image}
-                  alt="member profile picture"
-                  width={40}
-                  height={40}
-                  className={cn("rounded-full", {absolute: idx > 0})}
-                  style={{top: 0, left: idx * 28}}
-                />
+                <TooltipProvider key={member.user_id}>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Image
+                        src={user.image}
+                        alt="member profile picture"
+                        width={40}
+                        height={40}
+                        className={cn("rounded-full", { absolute: idx > 0 })}
+                        style={{ top: 0, left: idx * 28 }}
+                      />
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-purple-4 font-semibold">
+                      {user.name}
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               )
             })
             : "No Meeting Members"
@@ -84,7 +103,7 @@ const MeetingCard = ({ id, title, date, icon, isPreviousMeeting, buttonIcon1, bu
               className="rounded bg-purple-1 px-6"
             >
               {buttonIcon1 && (
-                <Image 
+                <Image
                   src={buttonIcon1}
                   alt="feature"
                   width={20}
@@ -102,7 +121,7 @@ const MeetingCard = ({ id, title, date, icon, isPreviousMeeting, buttonIcon1, bu
               }}
               className="bg-purple-3 px-6"
             >
-              <Image 
+              <Image
                 src="/icons/copy.svg"
                 alt="feature"
                 width={20}
