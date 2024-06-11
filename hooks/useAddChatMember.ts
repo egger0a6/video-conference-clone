@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Channel } from "stream-chat";
 
 export const useAddChatMember = (user: UserResource | null | undefined, channel: Channel | undefined) => {
-  const [isAddingMember, setIsAddingMember] = useState(true);
+  const [isAddingChatMember, setIsAddingMember] = useState(true);
 
   useEffect(() => {
     const addMember = async () => {
@@ -17,5 +17,5 @@ export const useAddChatMember = (user: UserResource | null | undefined, channel:
     addMember();
   }, [user, channel]);
 
-  return isAddingMember;
+  return isAddingChatMember;
 }

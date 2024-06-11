@@ -53,8 +53,9 @@ const MeetingTypeList = () => {
       await call.getOrCreate({
         data: {
           starts_at: startsAt,
+          members: [{user_id: user.id, role: "host"}],
           custom: {
-            description
+            description,
           }
         }
       });
