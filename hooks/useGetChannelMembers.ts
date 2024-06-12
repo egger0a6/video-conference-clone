@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react"
 import { ChannelMemberResponse } from "stream-chat";
@@ -20,7 +22,7 @@ export const useGetChannelMembers = (id: string) => {
       if (channel) {
         if (channel.data?.member_count === 0) return;
         let {members} = await channel.queryMembers({});
-        members = members.filter((member) => member.user_id !== user?.id).slice(0, 6);
+        members = members.filter((member) => member.user_id !== channel.data?.created_by.id).slice(0, 6);
         if (members.length > 6) {
           setMemberCount(members.length - 6);
         } else {

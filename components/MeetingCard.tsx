@@ -7,6 +7,8 @@ import { toast } from "./ui/use-toast";
 import Loader from "./Loader";
 import { useGetChannelMembers } from "@/hooks/useGetChannelMembers";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
+import { MessageSquareText } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface MeetingCardProps {
   id: string;
@@ -20,9 +22,11 @@ interface MeetingCardProps {
   link: string;
   hostImg: string;
   hostName: string;
+  userId: string;
 }
 
-const MeetingCard = ({ id, title, date, icon, isPreviousMeeting, buttonIcon1, buttonText, handleClick, link, hostImg, hostName }: MeetingCardProps) => {
+const MeetingCard = ({ id, title, date, icon, isPreviousMeeting, buttonIcon1, buttonText, handleClick, link, hostImg, hostName, userId }: MeetingCardProps) => {
+  const router = useRouter();
   const { members, isMembersLoading, memberCount } = useGetChannelMembers(id);
 
   if (isMembersLoading) return <Loader />;
@@ -42,24 +46,30 @@ const MeetingCard = ({ id, title, date, icon, isPreviousMeeting, buttonIcon1, bu
             <p className="text-base font-normal">{date}</p>
           </div>
         </div>
-        <div className="flex flex-row items-center gap-2">
-          <h2 className="font-semibold">Host:</h2>
-          <TooltipProvider>
-            <Tooltip delayDuration={300}>
-              <TooltipTrigger>
-                <Image
-                  src={hostImg}
-                  alt="host profile picture"
-                  width={40}
-                  height={40}
-                  className="rounded-full"
-                />
-              </TooltipTrigger>
-              <TooltipContent className="bg-purple-1 font-semibold">
-                {hostName}
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+        <div className="flex flex-row justify-between">
+          <div className="flex gap-2 items-center">
+            <h2 className="font-semibold">Host:</h2>
+            <TooltipProvider>
+              <Tooltip delayDuration={300}>
+                <TooltipTrigger>
+                  <Image
+                    src={hostImg}
+                    alt="host profile picture"
+                    width={40}
+                    height={40}
+                    className="rounded-full"
+                  />
+                </TooltipTrigger>
+                <TooltipContent className="bg-purple-1 font-semibold">
+                  {hostName}
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
+          <Button className="bg-blue-1/70">
+            <MessageSquareText width={20} height={20} className="mr-2" />
+            <h2 className="font-semibold">Chat Log</h2>
+          </Button>
         </div>
       </article>
       <div className="flex-grow border-t border-gray-700 mb-3"></div>
@@ -82,7 +92,7 @@ const MeetingCard = ({ id, title, date, icon, isPreviousMeeting, buttonIcon1, bu
                       />
                     </TooltipTrigger>
                     <TooltipContent className="bg-purple-4 font-semibold">
-                      {user.name}
+                      {(userId === member.user_id) ? `${user.name} (you)` : user.name}
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>

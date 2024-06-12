@@ -1,4 +1,4 @@
-import { CallControls, CallParticipantsList, CallStatsButton, CallingState, PaginatedGridLayout, SpeakerLayout, useCallStateHooks } from "@stream-io/video-react-sdk";
+import { CallControls, CallParticipantsList, CallStatsButton, CallingState, PaginatedGridLayout, SpeakerLayout, useCall, useCallStateHooks } from "@stream-io/video-react-sdk";
 import { useEffect, useState } from "react";
 
 import {
@@ -23,6 +23,7 @@ const MeetingRoom = ({ channel }: {channel: ChannelTypes}) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isPersonalRoom = !!searchParams.get("personal");
+  const [isCallEnded, setIsCallEnded] = useState(false);
 
   const [layout, setLayout] = useState<CallLayoutType>("speaker-bottom");
   const [showParticipants, setShowParticipants] = useState(false);
@@ -43,10 +44,15 @@ const MeetingRoom = ({ channel }: {channel: ChannelTypes}) => {
     }
   }, [screenWidth]);
 
-  const { useCallCallingState } = useCallStateHooks();
+  const { useCallCallingState, useCallEndedAt } = useCallStateHooks();
   const callingState = useCallCallingState();
+  const endedAt = useCallEndedAt();
+  
+  useEffect(() => {
+    if (!!endedAt) setIsCallEnded(true);
+  }, [endedAt, setIsCallEnded]);
 
-  if (callingState !== CallingState.JOINED) return <Loader />
+  if (callingState !== CallingState.JOINED) return <Loader isCallEnded={isCallEnded} />
 
   const CallLayout = () => {
     switch (layout) {

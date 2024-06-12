@@ -8,18 +8,14 @@ import { useGetCallById } from "@/hooks/useGetCallById";
 import { useGetChannelById } from "@/hooks/useGetChannelById";
 import { useUser } from "@clerk/nextjs";
 import { BackgroundFiltersProvider, StreamCall, StreamTheme } from "@stream-io/video-react-sdk";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const Meeting = ({ params: { id } }: { params: { id: string } }) => {
-  const router = useRouter();
   const { user, isLoaded } = useUser();
   const [isSetuppComplete, setIsSetupComplete] = useState(false);
   const [isAddingCallMember, setIsAddingCallMember] = useState(true);
 
   const { call, isCallLoading } = useGetCallById(id);
-  if (call?.state.endedAt) router.push("/");
-  console.log(call?.state.members)
   const { channel, isChannelLoading } = useGetChannelById(id);
   const isAddingChatMember = useAddChatMember(user, channel);
 
@@ -34,14 +30,16 @@ const Meeting = ({ params: { id } }: { params: { id: string } }) => {
     const addMember = async () => {
       if (!isCallMember) {
         await call?.updateCallMembers({
-          update_members: [{user_id: user?.id!, role: "user"}],
+          update_members: [{ user_id: user?.id!, role: "user" }],
         });
       }
-      
+
       setIsAddingCallMember(false);
     }
     addMember();
   }, [call, user?.id, isCallMember]);
+
+  if (call?.state.endedAt) return <Loader isCallEnded={true} />
 
   if (!isLoaded || isCallLoading || isChannelLoading || isAddingChatMember || isAddingCallMember) return <Loader />
 

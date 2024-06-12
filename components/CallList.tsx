@@ -9,11 +9,13 @@ import { useEffect, useState } from "react";
 import MeetingCard from "./MeetingCard";
 import Loader from "./Loader";
 import { useToast } from "./ui/use-toast";
+import { useUser } from "@clerk/nextjs";
 
 const CallList = ({ type }: {type: "ended" | "upcoming" | "recordings"}) => {
   const router = useRouter();
   const {toast} = useToast();
 
+  const {user, isLoaded} = useUser();
   const {endedCalls, upcomingCalls, callRecordings, isLoading} = useGetCalls();
 
   const [recordings, setRecordings] = useState<CallRecording[]>([]);
@@ -65,7 +67,7 @@ const CallList = ({ type }: {type: "ended" | "upcoming" | "recordings"}) => {
   const calls = getCalls();
   const noCallsMessage = getNoCallsMessage();
 
-  if (isLoading) return <Loader />
+  if (isLoading || !isLoaded) return <Loader />
 
   return (
     <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
@@ -74,6 +76,7 @@ const CallList = ({ type }: {type: "ended" | "upcoming" | "recordings"}) => {
             <MeetingCard 
               key={(meeting as Call)?.id}
               id={meeting?.id}
+              userId={user?.id}
               icon={
                 type === "ended" ?
                   "/icons/previous.svg" : 
@@ -83,7 +86,7 @@ const CallList = ({ type }: {type: "ended" | "upcoming" | "recordings"}) => {
               }
               title={meeting.state?.custom?.description?.substring(0, 26) || meeting?.filename?.substring(0, 20) || "Personal Meeting"}
               date={meeting.state?.startsAt.toLocaleString() || meeting.start_time.toLocaleString()}
-              hostName={meeting.state?.createdBy.name}
+              hostName={(user?.id === meeting.state?.createdBy.id) ? `${meeting.state?.createdBy.name} (you)` : meeting.state?.createdBy.name}
               hostImg={meeting.state?.createdBy.image}
               isPreviousMeeting={type === "ended"}
               buttonIcon1={type === "recordings" ? "/icons/play.svg" : null}
