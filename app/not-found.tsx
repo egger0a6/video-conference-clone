@@ -10,7 +10,7 @@ const NotFound = () => {
   const router = useRouter();
 
   return (
-    <section>
+    <main className="relative">
       <Navbar />
       <section className="flex-center min-h-screen w-full px-6 pb-6 pt-28 max-md:pb-14 sm:px-14">
         <div className="flex-center flex-col">
@@ -23,14 +23,14 @@ const NotFound = () => {
           <p className="text-2xl text-white mt-6">404 | This page could not be found.</p>
           <Button 
               onClick={() => router.push("/")}
-              className="border-2 border-green-1 text-green-1 text-lg font-semibold mt-4"
+              className="border-2 border-green-1 text-green-1 text-lg font-semibold mt-4 hover:bg-green-1 hover:text-black"
             >
               Return Home
               <ArrowUpRight width={22} height={22} className="ml-2" />
             </Button>
         </div>
       </section>
-    </section>
+    </main>
   )
 }
 

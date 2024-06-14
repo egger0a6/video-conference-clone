@@ -66,7 +66,10 @@ const MeetingCard = ({ id, title, date, icon, isPreviousMeeting, buttonIcon1, bu
               </Tooltip>
             </TooltipProvider>
           </div>
-          <Button className="bg-blue-1/70">
+          <Button 
+            onClick={() => router.push(`/chat/logs/${id}`)}
+            className="border border-blue-1 text-blue-1 hover:bg-blue-1 hover:text-black"
+          >
             <MessageSquareText width={20} height={20} className="mr-2" />
             <h2 className="font-semibold">Chat Log</h2>
           </Button>
@@ -74,7 +77,7 @@ const MeetingCard = ({ id, title, date, icon, isPreviousMeeting, buttonIcon1, bu
       </article>
       <div className="flex-grow border-t border-gray-700 mb-3"></div>
       <article className={cn("flex justify-center relative", {})}>
-        <div className="relative sm:flex w-full hidden">
+        <div className="relative flex w-full">
           {(members && members.length > 0)
             ? members.map((member, idx) => {
               let user = JSON.parse(JSON.stringify(member.user));

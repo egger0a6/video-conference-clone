@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import '~stream-chat-react/dist/css/v2/index.css';
+
 * {
   margin: 0;
   padding: 0;
@@ -9,6 +11,12 @@
 }
 
 /* ======== stream css overrides ======== */
+.str-chat {
+  --str-chat__primary-color: #7BC9FF;
+  --str-chat__background-color: #1c1f2e;
+  --str-chat__secondary-background-color: #1c1f2e;
+}
+
 .str-video__call-stats {
   max-width: 500px;
   position: relative;

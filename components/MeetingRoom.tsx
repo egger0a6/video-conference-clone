@@ -1,4 +1,4 @@
-import { CallControls, CallParticipantsList, CallStatsButton, CallingState, PaginatedGridLayout, SpeakerLayout, useCall, useCallStateHooks } from "@stream-io/video-react-sdk";
+import { CallControls, CallParticipantsList, CallStatsButton, CallingState, PaginatedGridLayout, SpeakerLayout, useCallStateHooks } from "@stream-io/video-react-sdk";
 import { useEffect, useState } from "react";
 
 import {
