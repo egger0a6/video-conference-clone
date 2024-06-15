@@ -30,6 +30,10 @@
   --str-chat__tooltip-color: #F5FCFF;
 }
 
+.str-chat__unread-messages-separator {
+  background-color: #252A41;
+}
+
 .str-video__search-input__container {
   background-color: #252A41 !important;
 }

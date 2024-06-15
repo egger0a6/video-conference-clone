@@ -24,7 +24,7 @@ const ChatLog = ({ params: { id } }: { params: { id: string } }) => {
   if (!isLoaded || isCallLoading || isChannelLoading || isMembersLoading) return <Loader />;
 
   return (
-    <section className="sm:flex flex-col size-full text-white">
+    <section className=" size-full text-white">
       <div className="flex justify-between">
         <h1 className="text-3xl font-bold mb-3">
           Chat History
@@ -40,8 +40,8 @@ const ChatLog = ({ params: { id } }: { params: { id: string } }) => {
 
       <div className="flex-grow border-t border-gray-700 mb-10"></div>
 
-      <div className="flex justify-between gap-6">
-        <div className="flex flex-col gap-4 px-6 py-8 bg-dark-1 rounded-[14px] ml-auto h-full">
+      <div className="flex flex-col sm:flex-row justify-between gap-6">
+        <div className="flex flex-col gap-4 px-6 py-8 bg-dark-1 rounded-[14px] sm:ml-auto h-full">
           <h1 className="text-2xl font-bold">
             {call?.state?.custom?.description?.substring(0, 26) || "Personal Meeting"}
           </h1>
@@ -67,17 +67,16 @@ const ChatLog = ({ params: { id } }: { params: { id: string } }) => {
           </div>
         </div>
 
-        <div className="w-[350px] mx-auto h-screen outline outline-[6px] outline-dark-1 rounded-[14px]">
+        <div className="w-full sm:min-w-[350px] sm:w-[700px] mx-auto max-h-screen h-screen sm:h-[75vh] outline outline-[6px] outline-dark-1 rounded-[14px]">
           <Channel channel={channel!}>
             <Window>
               <MessageList />
-              <MessageInput />
             </Window>
             <Thread />
           </Channel>
         </div>
 
-        <div className="flex flex-col gap-4 px-6 py-8 bg-dark-1 rounded-[14px] mr-auto h-full">
+        <div className="flex flex-col gap-4 px-6 py-8 bg-dark-1 rounded-[14px] sm:mr-auto h-full">
           <h2 className="text-xl font-semibold">Members:</h2>
           <div className="flex flex-row flex-wrap gap-2">
             {(members && members.length > 0)
