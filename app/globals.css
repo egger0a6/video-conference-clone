@@ -13,8 +13,33 @@
 /* ======== stream css overrides ======== */
 .str-chat {
   --str-chat__primary-color: #7BC9FF;
+  --str-chat__primary-overlay-color: #7BC9FF;
+  --str-chat__text-low-emphasis-color: #e5e7eb;
   --str-chat__background-color: #1c1f2e;
   --str-chat__secondary-background-color: #1c1f2e;
+  --str-chat__on-primary-color: #000;
+  --str-chat__primary-surface-color: #C9DDFF;
+  --str-chat__primary-surface-color-low-emphasis: #ECF0FF;
+  --str-chat__surface-color: #F5FCFF;
+  --str-chat__secondary-surface-color: #F5FCFF;
+  --str-chat__message-highlight-color: #A3FFD6;
+  --str-chat__message-textarea-color: #F5FCFF;
+  --str-chat__message-actions-box-background-color: #F5FCFF;
+  --str-chat__message-actions-box-item-hover-background-color: #7BC9FF;
+  --str-chat__thread-header-color: #F5FCFF;
+  --str-chat__tooltip-color: #F5FCFF;
+}
+
+.str-video__search-input__container {
+  background-color: #252A41 !important;
+}
+
+.str-chat__message-input {
+  margin-bottom: 6px;
+}
+
+.str-chat__close-thread-button > svg > path {
+  fill: #F5FCFF !important;
 }
 
 .str-video__call-stats {
@@ -41,7 +66,6 @@
 .str-video__participant-list {
   background-color: #1c1f2e;
   padding: 10px;
-  border-radius: 10px;
   color: white;
   height: 100%;
 }

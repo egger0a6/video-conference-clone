@@ -67,7 +67,7 @@ const ChatLog = ({ params: { id } }: { params: { id: string } }) => {
           </div>
         </div>
 
-        <div className="w-[350px] mx-auto h-screen">
+        <div className="w-[350px] mx-auto h-screen outline outline-[6px] outline-dark-1 rounded-[14px]">
           <Channel channel={channel!}>
             <Window>
               <MessageList />

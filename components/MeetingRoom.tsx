@@ -128,13 +128,14 @@ const MeetingRoom = ({ channel }: {channel: ChannelTypes}) => {
         "sm:w-[30vw] translate-x-0" :
         "sm:w-0 translate-x-[30vw]"
       }`}>
-        <div className={`transform scale-0 ${(showParticipants && showChat)
+        <div className={`relative transform scale-0 ${(showParticipants && showChat)
           ? "h-[50vh] scale-100"
           : showParticipants
             ? "h-screen scale-100"
             : "h-0"
         } transition-all duration-500 ease-out`}>
             <CallParticipantsList onClose={() => setShowParticipants(false)} />
+            <div className="absolute bottom-0 w-full border-t-2 border-gray-700"></div>
         </div>
         <div className={`relative transform scale-0 ${(showParticipants && showChat) 
           ? "h-[50vh] scale-100"
@@ -145,7 +146,7 @@ const MeetingRoom = ({ channel }: {channel: ChannelTypes}) => {
           <Channel channel={channel} />
           <button 
             onClick={() => setShowChat(false)}
-            className="absolute top-1 left-1 cursor-pointer rounded-2xl p-2 text-black hover:bg-[#4c535b] hover:text-white"
+            className="absolute top-1 left-1 cursor-pointer rounded-2xl p-2 text-white hover:bg-[#4c535b] hover:text-white"
           >
             <ArrowRightToLine size={24} />
           </button>
