@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# <img src="./public/icons/choomz-logo.svg" width="835" height="251">
+### Video Conferencing App
+
+<br>
+
+## Table of contents
+- [General Info](#general-info)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Technologies]()
+
+
+## General Info
+This project is a video conferencing app that replicates software like Zoom. It allows users to securely log in, create calls, interact with live chat during calls, and use various call tools such as settings, recording, and filters.
 
 ## Getting Started
+- [Live App](https://video-conference-clone.vercel.app/)
 
-First, run the development server:
+<img src="./public/images/readme-home-page.png" width="1280" height="617">
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Usage
+* **Authentication:** With Clerk's API, users can securely log in using social accounts or a conventional email and password method. Authorized access and permissions are implemented across the app. 🔒
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* **Host or join meetings:** Start a new meeting or invite others. Before joining the call, users can configure microphone and camera settings. 🗣️
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+* **Schedule meetings:** Hosts can schedule upcoming meetings and set the details, including title, date, and time. 📅
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+* **Previous meetings:** Users can view past meetings that they either hosted or were a member of. Chat logs of the ended meetings are available as well. 🗨️ 
 
-## Learn More
+* **View recorded meetings:** Access your recordings of past meetings. 🔴
 
-To learn more about Next.js, take a look at the following resources:
+* **Host a personal room:** Each user has a personal room with a unique link. Great for quick meetings. 🔄
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* **Join meetings:** Join meetings created by others by entering the link. 🤝
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+* **Meeting Controls / Customization:** Call participants can control many aspects of their meeting room. This includes speaker/members layout, microphone and camera inputs, live chat functionality, reactions, screen-sharing, camera background or blur customization, managing individual member states, and more. ⚙️
 
-## Deploy on Vercel
+* **Responsive design:** Easily access the app across many devices. The app follows responsive design principles to fit different screen sizes and resolutions. 📱
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Technologies
+<div>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+  ![NextJS](https://img.shields.io/badge/next%20js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+  ![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+  ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+  ![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-000000?style=for-the-badge&logo=shadcnui&logoColor=white)
+</div>
+  
+  <a href="https://getstream.io/">
+    <img src="./public/icons/stream-io.svg" width="60" height="60">
+  </a>
+  
+  *Stream*
+
+  <a href="https://clerk.com/">
+    <img src="./public/icons/clerk.svg" width="60" height="60">
+  </a>
+
+  *Clerk*
+
+<br>
+
+[Back to top](#)

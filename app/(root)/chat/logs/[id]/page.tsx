@@ -19,7 +19,7 @@ const ChatLog = ({ params: { id } }: { params: { id: string } }) => {
   const { call, isCallLoading } = useGetCallById(id);
   const { channel, isChannelLoading } = useGetChannelById(id);
   const { members, isMembersLoading } = useGetChannelMembers(id);
-  console.log(channel?.data?.own_capabilities)
+  // console.log(channel?.data?.own_capabilities)
 
   if (!isLoaded || isCallLoading || isChannelLoading || isMembersLoading) return <Loader />;
 
