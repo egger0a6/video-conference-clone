@@ -10,7 +10,7 @@ import { useUser } from "@clerk/nextjs";
 import { Undo2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Channel, MessageInput, MessageList, Thread, Window } from "stream-chat-react";
+import { Channel, MessageList, Thread, Window } from "stream-chat-react";
 
 const ChatLog = ({ params: { id } }: { params: { id: string } }) => {
   const router = useRouter();

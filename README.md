@@ -14,7 +14,7 @@
 This project is a video conferencing app that replicates software like Zoom. It allows users to securely log in, create calls, interact with live chat during calls, and use various call tools such as settings, recording, and filters.
 
 ## Getting Started
-- [Live App](https://video-conference-clone.vercel.app/)
+- [Live App](https://video-conference-clone.vercel.app/) &nbsp; ↗️
 
 <img src="./public/images/readme-home-page.png" width="1280" height="617">
 
