@@ -14,7 +14,11 @@
 This project is a video conferencing app that replicates software like Zoom. It allows users to securely log in, create calls, interact with live chat during calls, and use various call tools such as settings, recording, and filters.
 
 ## Getting Started
-- [Live App](https://video-conference-clone.vercel.app/) &nbsp; ↗️
+<a href="https://video-conference-clone.vercel.app/" target="_blank" rel="noopener noreferrer">
+  Live App &nbsp; ↗️
+</a>
+
+<br>
 
 <img src="./public/images/readme-home-page.png" width="1280" height="617">
 
@@ -46,13 +50,13 @@ This project is a video conferencing app that replicates software like Zoom. It 
   ![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-000000?style=for-the-badge&logo=shadcnui&logoColor=white)
 </div>
   
-  <a href="https://getstream.io/">
+  <a href="https://getstream.io/" target="_blank" rel="noopener noreferrer">
     <img src="./public/icons/stream-io.svg" width="60" height="60">
   </a>
   
   *Stream*
 
-  <a href="https://clerk.com/">
+  <a href="https://clerk.com/" target="_blank" rel="noopener noreferrer">
     <img src="./public/icons/clerk.svg" width="60" height="60">
   </a>
 
