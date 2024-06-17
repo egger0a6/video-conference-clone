@@ -7,7 +7,7 @@
 - [General Info](#general-info)
 - [Getting Started](#getting-started)
 - [Usage](#usage)
-- [Technologies]()
+- [Technologies](#technologies)
 
 
 ## General Info
@@ -58,6 +58,6 @@ This project is a video conferencing app that replicates software like Zoom. It 
 
   *Clerk*
 
-<br>
+<br><hr>
 
-[Back to top](#)
+[Back to top](#video-conferencing-app)
